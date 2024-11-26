@@ -1,0 +1,104 @@
+/* 단순한 아이콘은 CSS로 그리기 */
+
+        /* vertical bar */
+        /*.filter:not(:last-child)::after {*/
+        /*    content: "";*/
+        /*    display: inline-block;*/
+        /*    width: 1px;*/
+        /*    height: 0.8em;*/
+        /*    background-color: rgba(0, 0, 0, .6);*/
+        /*    margin: 0 0.5em;*/
+        /*    vertical-align: -0.06em;*/
+        /*    white-space: nowrap;*/
+        /*}*/
+
+.vertical{
+    display: flex;
+    background-color: var(--base-color-2);
+    position: absolute;
+    right: 0;
+    top: 6px;
+    height: 24px;
+    width: 1px;
+}
+.vertical::after{
+    display: flex;
+    background-color: var(--base-color-2);
+    position: absolute;
+    right: 0;
+    top: 6px;
+    height: 24px;
+    width: 1px;
+}
+
+/* 햄버거 메뉴 */
+.slide-btn {
+    width: 24px;
+    height: 24px;
+    background-color: var(--base-color-white);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.burger-menu{
+    width: 20px;         /* 메뉴버튼의 가로폭 */
+    height: 2px;         /* 메뉴버튼 한줄의 높이 */
+    background-color: var(--base-color-1);
+    cursor: pointer;
+
+    position: relative;
+    display: block;
+}
+
+.burger-menu::before,
+.burger-menu::after {
+    content: "";
+    width: 20px;
+    height: 2px;
+    background-color: var(--base-color-1);
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+
+.burger-menu::before {
+    top: -5px; /* 가운데 라인을 기준으로 위로 5px만큼 떨어짐 */
+
+}
+
+.burger-menu::after {
+    top: 5px;  /* 가운데 라인을 기준으로 아래로 5px만큼 떨어짐 */
+}
+/* X 아이콘 */
+
+/* 슬라이드 메뉴 */
+.slide-menu{
+    width: 100%;
+    position: absolute;
+    left: -100%; /*슬라이드 메뉴를 숨기기 위해 좌측 -100%에 숨겼습니다.*/
+    top: 0;
+    right:0;
+    bottom:0;
+    background-color: var(--base-color-white);
+    transition: left .3s;
+}
+.slide-menu ul li {
+    display: inline-block;
+    width:100%;
+    border-bottom:1px solid var(--base-color-1);
+}
+/* 슬라이드가 열고 닫힐 때마다 JS로 on 클래스 추가 삭제 */
+.slide-menu.on{
+    left: 0;
+}
+
+.burgur.on::after{
+    -webkit-transform: translateY(5px) rotate(135deg);
+    transform: translateY(5px) rotate(135deg);
+}
+.burgur.on::before{
+    -webkit-transform: translateY(-5px) rotate(-135deg);
+    transform: translateY(-5px) rotate(-135deg);
+}

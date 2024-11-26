@@ -1,0 +1,203 @@
+/* 아이콘 소스 위치 */
+.icon\:search::before{
+    mask-image: url("../img/icon/search.svg");
+}
+.icon\:home::before{
+    mask-image: url("../img/icon/home.svg");
+}
+.icon\:add::before{
+    mask-image: url("../img/icon/add.svg");
+}
+.icon\:profile::before{
+    mask-image: url("../img/icon/account_circle.svg");
+}
+.icon\:menu::before{
+    mask-image: url("../img/icon/menu.svg");
+}
+.icon\:settings::before{
+    mask-image: url("../img/icon/settings.svg");
+}
+.icon\:category::before{
+    mask-image: url("../img/icon/tag.svg");
+}
+.icon\:like::before{
+    mask-image: url("../img/icon/like.svg");
+}
+.icon\:views::before{
+    mask-image: url("../img/icon/views.svg");
+}
+.icon\:close::before{
+    mask-image: url("../img/icon/close.svg");
+}
+.icon\:more::before{
+    mask-image: url("../img/icon/more_vert.svg");
+}
+.icon\:more-small::before{
+    mask-image: url("../img/icon/more_vert.svg");
+}
+.icon\:more-big::before{
+    mask-image: url("../img/icon/more_vert.svg");
+}
+.icon\:arrow-back::before{
+    mask-image: url("../img/icon/arrow_back.svg");
+}
+.icon\:recommended::before{
+    mask-image: url("../img/icon/thumb_up.svg");
+}
+.icon\:dislike::before{
+    mask-image: url("../img/icon/thumb_down.svg");
+}
+.icon\:comment::before{
+    mask-image: url("../img/icon/comment.svg");
+}
+.icon\:arrow-down::before{
+    mask-image: url("../img/icon/arrow_down.svg");
+}
+.icon\:notification::before{
+    mask-image: url("../img/icon/notification.svg");
+}
+.icon\:copy::before{
+    mask-image: url("../img/icon/copy.svg");
+}
+
+/* 아이콘 기본 공통 스타일 */
+:is(
+        .icon\:search,
+        .icon\:home,
+        .icon\:add,
+        .icon\:profile,
+        .icon\:category,
+        .icon\:like,
+        .icon\:views,
+        .icon\:close,
+        .icon\:menu,
+        .icon\:settings,
+        .icon\:more,
+        .icon\:more-small,
+        .icon\:more-big,
+        .icon\:arrow-back,
+        .icon\:recommended,
+        .icon\:dislike,
+        .icon\:comment,
+        .icon\:arrow-down,
+        .icon\:notification,
+        .icon\:copy
+        )::before{
+    content: "";
+
+    display: flex;
+    width: var(--icon-width-3);
+    height: var(--icon-height-3);
+
+    mask-repeat: no-repeat;
+    mask-size: var(--icon-width-3) var(--icon-height-3);
+    background-color: var(--base-color-black);
+}
+
+/* 작은 아이콘 공통 스타일 */
+:is(
+        .icon\:category,
+        .icon\:like,
+        .icon\:views,
+        .icon\:close,
+        .icon\:more-small,
+        .icon\:recommended,
+        .icon\:dislike,
+        .icon\:comment,
+        .icon\:arrow-down,
+        .icon\:copy
+        )::before{
+    width: var(--icon-width-2);
+    height: var(--icon-height-2);
+    mask-size: var(--icon-width-2) var(--icon-height-2);
+}
+
+/* 큰 아이콘 공통 스타일 */
+:is(
+    .icon\:arrow-back,
+    .icon\:more-big
+)::before{
+    width: var(--icon-width-4);
+    height: var(--icon-height-4);
+    mask-size: var(--icon-width-4) var(--icon-height-4);
+}
+
+
+/* 아이콘 개별 스타일 */
+.icon\:search{
+    /* text-indent */
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+:is(
+        .icon\:home,
+        .icon\:add,
+        .icon\:profile
+        ){
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 아이콘 기능 적용 */
+:is(
+        .icon\:menu,
+        .icon\:settings,
+        .icon\:arrow-back,
+        .icon\:close,
+
+        .icon\:category,
+        .icon\:like,
+        .icon\:views,
+        .icon\:more-small,
+        .icon\:more-big,
+        .icon\:recommended,
+        .icon\:dislike,
+        .icon\:comment,
+        .icon\:arrow-down,
+        .icon\:notification,
+        .icon\:copy
+        ){
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* 아이콘 공통 폰트 크기 */
+.icon\:font-1{
+    font-size:var(--font-size-1);
+    text-align: center;
+}
+.icon\:font-2{
+    font-size:var(--font-size-2);
+    text-align: center;
+}
+
+/* 아이콘의 텍스트 위치 */
+.icon\:text-top,
+.icon\:text-bottom{
+    display: flex; !important;
+    flex-direction: column; !important;  /* main 축 바꿈 */
+}
+.icon\:text-left,
+.icon\:text-right{
+    display: flex; !important;
+}
+
+.icon\:text-bottom::before,
+.icon\:text-right::before{
+    content: ""; !important;
+    order: unset; !important;
+}
+.icon\:text-top::before,
+.icon\:text-left::before{
+    content: "";  !important;
+    order: 1; !important;
+}
+
+

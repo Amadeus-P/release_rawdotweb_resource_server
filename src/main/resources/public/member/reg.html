@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/css/reset.css">
+    <link rel="stylesheet" href="../src/css/root.css">
+    <link rel="stylesheet" href="../src/css/font.css">
+
+    <link rel="stylesheet" href="../src/css/inc/header.css">
+    <link rel="stylesheet" href="../src/css/inc/footer.css">
+    <link rel="stylesheet" href="../src/css/cards.css">
+    <link rel="stylesheet" href="../src/css/form.css">
+    <link rel="stylesheet" href="../src/css/icon.css">
+    <link rel="stylesheet" href="../src/css/button.css">
+    <link rel="stylesheet" href="../src/css/my-icon.css">
+    <script src="../src/js/reg.js" defer></script>
+    <style>
+        .submit-btn {
+            width: 100%;
+            padding: 5px 24px;
+            margin: 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            color: rgb(255, 255, 255);
+            background-color: rgb(0, 148, 116);
+            transition: all 0.4s;
+
+        }
+        .submit-btn:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(1, 121, 87);
+        }
+        input::placeholder, textarea::placeholder{
+            font-size:var(--font-size-1);
+            color: var(--base-color-3);
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+<!--    <header>-->
+<!--        <h1>사이트 상세</h1>-->
+<!--        <section style="-->
+<!--                margin: 20px 10px;-->
+<!--                display: flex; justify-content: space-between;">-->
+<!--            <h1>헤더</h1>-->
+<!--            <button class="icon:arrow-back text-hidden btn"-->
+<!--                    style="-->
+<!--                            /*display: flex;*/-->
+<!--                            /*width: var(&#45;&#45;icon-width-4);*/-->
+<!--                            /*height: var(&#45;&#45;icon-height-4);*/-->
+<!--                            /*border-left: 2px solid black;*/-->
+<!--                            /*border-bottom: 2px solid black;*/-->
+<!--                            /*transform: rotateZ(45deg);*/-->
+<!--                            /*margin-right: 0.2em;*/-->
+<!--                ">뒤로가기</button>-->
+<!--        </section>-->
+<!--    </header>-->
+
+<header>
+    <h1>웹사이트 등록 페이지</h1>
+    <section style="
+              margin: 20px 10px;
+              display: flex; justify-content: space-between;">
+      <h1>상단 메뉴</h1>
+      <button class="icon:arrow-back text-hidden btn">뒤로가기</button>
+      <ul class="icon:more-big">
+        <li>
+          <a class="btn-style:default" href="share.html">공유</a>
+        </li>
+        <li>
+          <a class="btn-style:default" href="report.html">신고</a>
+        </li>
+      </ul>
+    </section>
+  </header>
+    <main>
+        <section style="display: flex; justify-content: space-evenly;">
+            <h1>사이트 정보 입력</h1>
+            <form action="" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend class="legend">사이트 정보 입력</legend>
+                    <ul style="display: flex; gap: 10px; flex-direction: column;">
+                        <li>
+                            <label class="label-card">
+                                <span>사이트 이름</span>
+                                <strong><span style="color: var(--accent-color-1);" aria-label="필수입력">*</span></strong>
+                                <input type="text" name="site-name" required autofocus autocomplete="on">
+                            </label>
+                        </li>
+                        <li>
+                            <label class="label-card">
+                                <span>사이트 URL</span>
+                                <strong><span style="color: var(--accent-color-1);" aria-label="필수입력">*</span></strong>
+                                <input type="url" id="url-prefix" name="address" pattern="https:(//)?.*" required>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="label-card">
+                                <span>카테고리</span>
+                                <input type="text" name="tag">
+                            </label>
+                        </li>
+                        <li>
+                            <label class="label-card" style="height: 100px; justify-content: center; align-items: center;">
+                                <span>이미지 업로드</span>
+                                <input type="file" name="img" style="">
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+                <div style="margin: 20px 0;">
+                    <button class="noto-sans-kr submit-btn">사이트 등록하기</button>
+                </div>
+            </form>
+        </section>
+        <article style="margin-bottom: 60px;">
+            <h1>갤러리</h1>
+            <ul class="website-list">
+                <li class="website-card">
+                    <img class="website-img" src="../src/img/website/google.png" alt="대표 이미지">
+                </li>
+                <li>
+                        <img class="website-img" src="../src/img/website/rland.png" alt="스크린샷">
+                </li>
+            </ul>
+        </article>
+    </main>
+</body>
+
+</html>

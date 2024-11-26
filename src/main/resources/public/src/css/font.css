@@ -1,0 +1,42 @@
+body{
+    font-family:
+            "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+            "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+            "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-size:var(--font-size-2);
+    letter-spacing: 1px;
+    color: var(--base-color-1);
+    /* font-weight: 100; */
+    font-weight: var(--font-weight-4);
+    /* font-weight: 600; */
+    /*font-style: normal;*/
+}
+
+.font-size-small{
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-6)
+}
+.font-size-default{
+    font-size: var(--font-size-3);
+    font-weight: var(--font-weight-6)
+}
+
+.text-hidden{
+    display: flex;
+    text-indent: -999px;
+    white-space: nowrap; !important;
+    overflow: hidden; !important;
+}
+.text-overflow{
+    white-space: nowrap; !important;
+    overflow: hidden; !important;
+    text-overflow: ellipsis; !important;
+}
+
+.legend{
+    /* legend 태그 숨기기 */
+    /*position: relative; 부모 태그에 필수 */
+    position: absolute; !important;
+    visibility: hidden; !important;
+    overflow: hidden; !important;
+}

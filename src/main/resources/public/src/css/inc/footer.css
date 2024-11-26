@@ -1,0 +1,33 @@
+/* footer */
+.footer{
+	position: fixed;
+	z-index: var(--z-index-high);
+	bottom:0;
+	left: 0;
+
+	border-top: 1px solid var(--base-color-3);
+	width: 100%;
+
+	background-color: var(--base-color-white);
+
+}
+.footer-card{
+	display: flex;
+	justify-content: center;
+	padding: 4px 0 4px;
+}
+.footer-menu{
+	display: flex;
+	flex-wrap: nowrap;
+	flex-basis: 100%;
+	justify-content:space-evenly;
+}
+
+/* 하단 메뉴에 동일한 크기를 주고 여백을 일정하게 나눔 */
+ul.footer-menu>li{
+	--icon-width-4: 100px;
+	width: var(--icon-width-4);
+}
+.banner{
+	/* 10개마다 중간 중간 배너 추가 */
+}

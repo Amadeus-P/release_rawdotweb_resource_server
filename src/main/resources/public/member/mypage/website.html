@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../src/css/reset.css">
+    <link rel="stylesheet" href="../../src/css/root.css">
+    <link rel="stylesheet" href="../../src/css/font.css">
+
+    <link rel="stylesheet" href="../../src/css/inc/header.css">
+    <link rel="stylesheet" href="../../src/css/inc/footer.css">
+    <link rel="stylesheet" href="../../src/css/cards.css">
+    <link rel="stylesheet" href="../../src/css/form.css">
+    <link rel="stylesheet" href="../../src/css/icon.css">
+    <link rel="stylesheet" href="../../src/css/button.css">
+    <link rel="stylesheet" href="../../src/css/my-icon.css">
+
+    <style>
+                /* .website-card{
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+        }
+        .website-img{
+            width: 50%;
+            height: auto;
+            object-fit:cover;
+            aspect-ratio: 16/9;
+        } */
+    </style>
+</head>
+<body>
+    <header>
+        <section style="
+                margin: 20px 10px;
+                display: flex; justify-content: space-between;">
+            <h1>상단 메뉴</h1>
+            <button class="icon:arrow-back text-hidden btn">뒤로가기</button>
+        </section>
+            <nav style="margin-top: 10px; flex-basis: 100%; justify-content: space-evenly;">
+                <h1>상단 슬라이드 메뉴</h1>
+                <ul style="
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: start;">
+                    <li style="display: flex; justify-content: center; flex-basis: 50%; flex-shrink: 1; flex-grow: 1;">
+                        <a href="index.html" style="
+                                height: 24px;
+                                
+                                display: flex;
+                                flex-basis: 25%;
+                                flex-shrink: 0;
+                                flex-grow: 1;
+                            justify-content: center;
+                            ">내 정보</a>
+                    </li>
+                    <li style="display: flex; justify-content: center; flex-basis: 50%; flex-shrink: 1; flex-grow: 1;">
+                        <a href="website.html" style="
+                                height: 24px;
+                                border-bottom: 2px solid var(--main-color-1);
+                                display: flex;
+                                flex-shrink: 0;
+                                flex-grow: 1;
+                                justify-content: center;
+                            ">웹사이트</a>
+                    </li>
+                    <li style="display: flex; justify-content: center; flex-basis: 50%; flex-shrink: 1; flex-grow: 1;">
+                        <a href="comment.html" style="
+                                height: 24px;
+
+                                display: flex;
+                                flex-shrink: 0;
+                                flex-grow: 1;
+                                justify-content: center;
+                            ">댓글</a>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+
+    <main>
+        <section style="margin: 50px 10px 50px; display: flex; flex-direction: column; flex: 1 0 100%;">
+            <h1 style="display: flex; font-size: var(--font-size-5); font-weight: var(--font-weight-6);">내가 등록한 웹사이트</h1>
+            <section style="display: flex; justify-content: end; flex-basis: 100%; margin: 0  0 10px;">
+                <h1>검색 페이지로 이동</h1>
+                <form action="" method="post" role="search">
+                    <label class="label-card" style="position: relative; border-color: var(--main-color-1)">
+                        <input type="search" name="q" placeholder="조회 기록 검색" autocomplete="off"
+                               style="margin-left: 40px;">
+                    </label>
+                    <span class="icon:search text-hidden" style="position: absolute; left: 30px;"></span>
+                    <button class="btn-style:default" type="reset">취소</button>
+                    <!-- <button class="btn-submit:default">검색</button> -->
+                </form>
+            </section>
+            
+            <section class="" style="margin: 0 0 5px; position: relative;">
+                <h1>웹사이트 목록</h1>
+                <div class="website-card">
+                    <div>
+                        <img class="website-img" src="../../src/img/website/rland.png" alt="스크린샷">
+                    </div>
+                    <ul class=""
+                        style="
+                    padding: 10px;
+                    display: flex;
+                    gap: 2px;
+                    flex-direction: column;">
+                        <li>
+                            <span class="text" style="max-width: 200px; font-size: var(--font-size-3);">네이버</span>
+                        </li>
+                        <li>
+                            <span style="
+                            max-width: 200px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            font-size: var(--font-size-1);
+                            color: var(--base-color-3);
+                            ">카테고리
+                            </span>
+                        </li>
+                        <li>
+                            <span style="font-size: var(--font-size-1); color: var(--base-color-3);">이름</span>
+                        </li>
+                        <li>
+                            <a href="">수정하기</a>
+                            <button>삭제하기</button>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+    </main>
+    
+</body>
+</html>

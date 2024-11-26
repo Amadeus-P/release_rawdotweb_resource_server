@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: dev
+  # 스프링 3.0 이후 context 경로를 위한 설정
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  security:
+    user:
+      name: sinny@gmail.com
+      password: 1111
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+  web:
+    resources:
+      static-locations: # static폴더와 같은 거라 생각하면 됨
+      - file:C:/MichaelFaraday/SIWA_Project/rawdotweb/images #여기까지 홈디렉토리
+
+# context 경로(배포경로와 겹칠 때 주석처리하면 됨 근데 굳이 겹치게 할 필요는 없음)
+# 정적파일의 context 경로
+server:
+  servlet:
+    context-path: /api
+# 내맘대로 설정
+siwa:
+    jwt:
+      secret: "EW9eWHfv5jkEZ3IqtUW8SCuuNcxFmT7gbqcKQ9+e2eTkyxsJoS7E2/qjQyGEtcjqmGFbHPll9E/KTnOB8i1cTg=="

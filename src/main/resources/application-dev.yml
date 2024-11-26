@@ -1,0 +1,29 @@
+
+spring:
+  application:
+    name: SIWA_Project
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://hi.newlecture.com:3306/sinny13db
+    username: sinny13
+    password: 111
+  jpa:
+#    defer-datasource-initialization: true # 테이블 생성 순서 schema > data > entity
+    #    권한
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+#         create: 테이블을 삭제하고 생성함 > 외래키를 참조 하고 있는지 확인
+      ddl-auto: update # create create-drop update validate
+    properties:
+      hibernate:
+        #        spring 콘솔에 출력되는 sql을 보기 좋게 형식을 바꿈
+        format_sql: true
+  # data.sql 적용
+server:
+    port: 8087
+#logging:
+  #  level:
+  #    sql: trace
+  #    root: trace
+  #    web: trace

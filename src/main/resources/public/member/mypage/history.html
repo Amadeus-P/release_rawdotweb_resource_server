@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../../src/css/reset.css">
+    <link rel="stylesheet" href="../../src/css/root.css">
+    <link rel="stylesheet" href="../../src/css/font.css">
+
+    <link rel="stylesheet" href="../../src/css/cards.css">
+    <link rel="stylesheet" href="../../src/css/form.css">
+    <link rel="stylesheet" href="../../src/css/icon.css">
+    <link rel="stylesheet" href="../../src/css/button.css">
+    <link rel="stylesheet" href="../../src/css/my-icon.css">
+
+    <style>
+
+        .website-card{
+            display: flex;
+            align-items: center;
+            box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+        }
+        .website-img{
+            width: 50%;
+            height: auto;
+            object-fit:cover;
+            aspect-ratio: 16/9;
+        }
+
+    </style>
+    <title></title>
+</head>
+<body>
+    <header>
+    <section style="margin: 20px 10px; display: flex; justify-content: space-between;">
+        <h1>상단 메뉴</h1>
+        <button class="icon:arrow-back text-hidden btn">뒤로가기</button>
+    </section>
+</header>
+    <main>
+        <section style="margin: 50px 10px 50px; display: flex; flex-direction: column; flex: 1 0 100%;">
+            <h1 style="display: flex; font-size: var(--font-size-5); font-weight: var(--font-weight-6);">최근 본 웹사이트</h1>
+            <section style="display: flex; justify-content: end; flex-basis: 100%; margin: 0  0 10px;">
+                <h1>검색 페이지로 이동</h1>
+                <form action="" method="post" role="search">
+                    <label class="label-card" style="position: relative; border-color: var(--main-color-1)">
+                        <input type="search" name="q" placeholder="조회 기록 검색" autocomplete="off"
+                               style="margin-left: 40px;">
+                    </label>
+                    <span class="icon:search text-hidden" style="position: absolute; left: 30px;"></span>
+                    <button class="btn-style:default" type="reset">취소</button>
+                    <!-- <button class="btn-submit:default">검색</button> -->
+                </form>
+            </section>
+            
+            <nav class="" style="margin: 0 0 5px; position: relative;">
+                <h1>웹사이트 목록</h1>
+                <!-- 관리자 버튼 -->
+                <button class="icon:close text-hidden btn"
+                        style="position: absolute; right: 0;">삭제</button>
+                <div class="website-card">
+                    <a href="../detail.html"
+                       style="
+                       display: flex;
+                       flex: 1 0 100%;
+                    ">
+                        <img class="website-img"
+                             src="../../src/img/website/rland.png" alt="스크린샷">
+                        <ul class="item-list"
+                            style="
+                        padding: 10px;
+                        display: flex;
+                        gap: 2px;
+                        flex-direction: column;">
+                            <li style="">
+                                <span class="text" style="max-width: 200px; font-size: var(--font-size-3);">네이버</span>
+                            </li>
+                            <li>
+                              <span style="
+                                max-width: 200px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                font-size: var(--font-size-1);
+                                color: var(--base-color-3);
+                                ">카테고리
+                              </span>
+                            </li>
+                            <li>
+                                <span style="font-size: var(--font-size-1); color: var(--base-color-3);">이름</span>
+                            </li>
+                            <li style="
+                            margin-top: auto;
+                            display: flex; flex-direction: row; gap: 2px;">
+                                <data class="icon:views icon:font-1" style="width: 50px;" value="">1천</data>
+                                <data class="icon:comment icon:font-1" style="width: 50px;" value="">999+</data>
+                                <data class="icon:likes icon:font-1" style="width: 50px;" value="">10</data>
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+            </nav>
+        </section>
+    </main>
+</body>
+</html>

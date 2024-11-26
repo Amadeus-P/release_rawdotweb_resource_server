@@ -1,0 +1,64 @@
+.box-shadow{
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+}
+
+/* 입력 라벨 박스 공통 스타일*/
+.label-card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    border: 1px solid var(--base-color-3);
+    border-radius: var(--border-radius-px-2);
+
+    font-size: var(--font-size-1);
+}
+
+.label-card:has(
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="file"]
+) {
+    margin: 10px;
+    padding: 10px;
+}
+.label-card:has(input[type="search"]){
+    margin: 10px;
+}
+
+.comment{
+
+}
+
+
+/* 
+이 구조로 통일함 
+<section class="website-list">
+    <div class="website-card">
+        <img class="website-img">
+    <div>
+</section> 
+
+*/
+.website-list{
+    /* 모든 웹사이트의 공통 스타일  */
+    display: flex;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    justify-content: start;
+    flex-shrink: 0;
+}
+.website-card{
+    /* 웹 사이트 하나의 스타일 */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom:20px;
+}
+.website-img{
+    width: 100%;
+    height: auto;
+    object-fit:cover;
+    aspect-ratio: 16/9;
+}

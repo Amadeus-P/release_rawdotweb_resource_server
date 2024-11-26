@@ -1,0 +1,69 @@
+
+/*
+    전역적으로 사용할 변수를 정의하는 곳(모든 페이지에서 쓰일 만한 것)
+    페이지 내에서만 사용하는 것은 해당 페이지 내에서 정의
+    index는 index internal style로 정의
+*/
+
+:root{
+    --z-index-low: 1;
+    --z-index-middle: 100;
+    --z-index-high: 1000;
+
+    --font-size-1: 12px;
+    --font-size-2: 14px;
+    --font-size-3: 16px;
+    --font-size-4: 20px;
+    --font-size-5: 24px;
+
+    --font-weight-1: 100; /* 얇은체 */
+    --font-weight-2: 200; /* 매우가는체 */
+    --font-weight-3: 300; /* 가는체 */
+
+    --font-weight-4: 400; /* 일반체 */
+    --font-weight-5: 500; /* 중간체 */
+    --font-weight-6: 600; /* 세미볼드체 */
+
+    --font-weight-7: 700; /* 볼드체 */
+    --font-weight-8: 800; /* 엑스트라볼드체 */
+    --font-weight-9: 900; /* 블랙체 */
+
+
+    --width-1: 12px;
+    --width-2: 24px;
+    --width-3: 32px;
+
+    --height-1: 12px;
+    --height-2: 24px;
+    --height-3: 32px;
+
+    --border-radius-px-1: 2px;
+    --border-radius-px-2: 8px;
+    --border-radius-px-3: 18px;
+    /*--border-radius-3: 5px;*/
+
+    --icon-width-1: 12px;
+    --icon-width-2: 16px;
+    --icon-width-3: 24px;
+    --icon-width-4: 32px;
+
+    --icon-height-1: 12px;
+    --icon-height-2: 16px;
+    --icon-height-3: 24px;
+    --icon-height-4: 32px;
+
+    --btn-height-1:32px;
+
+    --base-color-black: #000000;
+    --base-color-white: #FFFFFF;
+    --base-color-1: #000000DD;
+    --base-color-2: #333333DE;
+    --base-color-3: #888888;
+    --base-color-4: #00000019;
+
+
+    --main-color-1: #009473;
+
+    --accent-color-1: #EF0307;
+
+}
