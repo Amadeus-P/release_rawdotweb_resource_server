@@ -3,6 +3,8 @@ package com.main.web.siwa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,5 +24,13 @@ public class Likes {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    @Column(name = "reg_date")
+    private Instant regDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = Instant.now();
+    }
 
 }

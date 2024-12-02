@@ -3,7 +3,7 @@ package com.main.web.siwa.service.member.website;
 import com.main.web.siwa.dto.member.website.*;
 import com.main.web.siwa.entity.*;
 import com.main.web.siwa.repository.*;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
 import com.main.web.siwa.utility.FileUpload;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
-package com.main.web.siwa.usecase.ghost.websiteImage.service;
+package com.main.web.siwa.service.websiteImage;
 
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageCreateDto;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageCreateDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

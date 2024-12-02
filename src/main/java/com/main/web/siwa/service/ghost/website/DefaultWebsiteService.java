@@ -5,7 +5,7 @@ import com.main.web.siwa.entity.WebsiteImage;
 import com.main.web.siwa.dto.ghost.website.WebsiteListDto;
 import com.main.web.siwa.dto.ghost.website.WebsiteResponseDto;
 import com.main.web.siwa.dto.ghost.website.WebsiteSearchDto;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
 import com.main.web.siwa.repository.WebsiteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

@@ -3,6 +3,8 @@ package com.main.web.siwa.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,4 +24,12 @@ public class Bookmark {
     @ManyToOne
     @JoinColumn(name = "website_id", nullable = false)
     private Website website;
+
+    @Column(name = "reg_date")
+    private Instant regDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = Instant.now();
+    }
 }

@@ -1,9 +1,9 @@
-package com.main.web.siwa.usecase.ghost.websiteImage.service;
+package com.main.web.siwa.service.websiteImage;
 
 import com.main.web.siwa.entity.Website;
 import com.main.web.siwa.entity.WebsiteImage;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageCreateDto;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageCreateDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
 import com.main.web.siwa.repository.WebsiteImageRepository;
 import com.main.web.siwa.repository.WebsiteRepository;
 import org.modelmapper.ModelMapper;

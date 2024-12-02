@@ -1,4 +1,4 @@
-package com.main.web.siwa.usecase.ghost.websiteImage.dto;
+package com.main.web.siwa.dto.websiteImage;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WebsiteImageCreateDto {
+public class WebsiteImageListDto {
 
     private Long id;
     private Long websiteId;

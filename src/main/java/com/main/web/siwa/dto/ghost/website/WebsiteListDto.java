@@ -1,7 +1,7 @@
 package com.main.web.siwa.dto.ghost.website;
 
 import com.main.web.siwa.dto.admin.category.CategoryListDto;
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
 import com.main.web.siwa.dto.member.MemberListDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.main.web.siwa.controller.ghost.website;
+package com.main.web.siwa.service.member.website;
 
 import com.main.web.siwa.dto.ghost.website.WebsiteListDto;
 import com.main.web.siwa.dto.ghost.website.WebsiteResponseDto;

@@ -1,7 +1,7 @@
-package com.main.web.siwa.usecase.ghost.websiteImage.controller;
+package com.main.web.siwa.controller.websiteImage;
 
-import com.main.web.siwa.usecase.ghost.websiteImage.dto.WebsiteImageListDto;
-import com.main.web.siwa.usecase.ghost.websiteImage.service.WebsiteImageService;
+import com.main.web.siwa.dto.websiteImage.WebsiteImageListDto;
+import com.main.web.siwa.service.websiteImage.WebsiteImageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

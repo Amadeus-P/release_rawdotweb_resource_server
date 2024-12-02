@@ -16,8 +16,8 @@ public class CategoryCreateDto {
     private String name;
     private String korName;
     private String engName;
-    private Long parentId;
     private String iconName;
+    private Long parentId;
 
     private List<Category> subCategories;
 }
