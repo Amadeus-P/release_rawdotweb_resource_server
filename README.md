@@ -82,5 +82,5 @@ SIWA_Project
 </pre>
 
 
-## 배포 후 도메인
+## 홈페이지
 https://www.rawdotweb.com
