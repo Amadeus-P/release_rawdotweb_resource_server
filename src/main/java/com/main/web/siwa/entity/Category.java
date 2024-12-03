@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -35,6 +36,14 @@ public class Category {
 
     @Column(name = "icon_name")
     private String iconName;
+
+    @Column(name = "reg_date")
+    private Instant regDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = Instant.now();
+    }
 
     //상위 테이블(부모 테이블)
     @ManyToOne

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @Entity
@@ -17,4 +19,12 @@ public class Role {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "reg_date")
+    private Instant regDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = Instant.now();
+    }
 }

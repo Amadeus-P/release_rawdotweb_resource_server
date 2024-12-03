@@ -1,6 +1,6 @@
 package com.main.web.siwa.config;
 
-import com.main.web.siwa.service.auth.SiwaUserDetailsService;
+import com.main.web.siwa.auth.service.SiwaUserDetailsService;
 import com.main.web.siwa.filter.JwtAuthenticationFilter;
 import com.main.web.siwa.utility.JwtUtil;
 import com.main.web.siwa.repository.MemberRepository;
@@ -68,7 +68,6 @@ public class SecurityConfig {
                                 .requestMatchers("/admin/**").hasRole("ADMIN") // hasAuthority("ADMIN")
                                 // /member 이후는 어떻게 권한을 줄지 고민
                                 .requestMatchers("/member/websites/**").hasAnyRole("MEMBER", "ADMIN")
-                                .requestMatchers("/member/new/**").hasAnyRole("MEMBER", "ADMIN")
                                 .requestMatchers("/member/mypage/**").hasAnyRole("MEMBER", "ADMIN")
 //                                .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().permitAll()
@@ -89,7 +88,7 @@ public class SecurityConfig {
 
         // CORS 설정을 source에 담아서 스프링 Security에게 전달
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost", "http://localhost:3007","http://192.168.0.60", "http://192.168.0.60:3007"));
+        config.setAllowedOrigins(Arrays.asList("https://www.rawdotweb.com","http://localhost", "http://localhost:3000", "http://localhost:3007"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.addAllowedHeader("*"); // 헤더
         config.addExposedHeader("Authorization");

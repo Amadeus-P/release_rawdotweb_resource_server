@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @Entity
@@ -22,6 +24,14 @@ public class WebsiteImage {
 
     @Column(name = "is_default")
     private Boolean isDefault;
+
+    @Column(name = "reg_date")
+    private Instant regDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.regDate = Instant.now();
+    }
 
     // 상위 테이블(부모 테이블)
     @ManyToOne
