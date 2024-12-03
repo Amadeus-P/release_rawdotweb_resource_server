@@ -1,4 +1,4 @@
-package com.main.web.siwa.member.website.dto;
+package com.main.web.siwa.action.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
