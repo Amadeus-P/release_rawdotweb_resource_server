@@ -17,6 +17,9 @@ public class Dislike {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "action", nullable = false)
+    private String action;
+
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;

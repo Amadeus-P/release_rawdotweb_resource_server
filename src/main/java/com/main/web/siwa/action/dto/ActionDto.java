@@ -14,4 +14,7 @@ public class ActionDto {
     private Long websiteId;
     private String action;
     private Boolean isAdded;
+    private Long likeCount;
+    private Long dislikeCount;
+    private Long bookmarkCount;
 }

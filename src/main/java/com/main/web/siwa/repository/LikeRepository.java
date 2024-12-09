@@ -12,4 +12,6 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
     Optional<Likes> findByWebsiteAndMember(Website website, Member member);
     boolean existsByWebsiteIdAndMemberId(Long memberId, Long websiteId);
     List<Likes> findAllByMemberId(Long memberId);
+    Long countByWebsiteId(Long likedWebsiteId);
+    Long countByWebsiteIdAndAction(Long websiteId, String action);
 }
