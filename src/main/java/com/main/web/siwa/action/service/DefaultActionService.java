@@ -110,11 +110,13 @@ public class DefaultActionService implements ActionService{
     public ActionResponseDto getMemberActionStatus(Long memberId) {
 
         // 북마크된 웹사이트 ID 목록 가져오기
+
         List<ActionDto> bookmarkedActions = bookmarkRepository.findAllByMemberId(memberId).stream()
                 .map(bookmark -> ActionDto.builder()
                         .memberId(memberId)
                         .websiteId(bookmark.getWebsite().getId())
                         .action("bookmark")
+                        .isAdded(bookmarkRepository.existsByWebsiteIdAndMemberId(memberId, bookmark.getWebsite().getId()))
                         .bookmarkCount(bookmarkRepository.countByWebsiteId(bookmark.getWebsite().getId()))
                         .build())
                 .toList();
@@ -125,6 +127,7 @@ public class DefaultActionService implements ActionService{
                         .memberId(memberId)
                         .websiteId(like.getWebsite().getId())
                         .action("like")
+                        .isAdded(likeRepository.existsByWebsiteIdAndMemberId(memberId, like.getWebsite().getId()))
                         .likeCount(likeRepository.countByWebsiteId(like.getWebsite().getId()))
                         .build())
                 .toList();
@@ -135,6 +138,7 @@ public class DefaultActionService implements ActionService{
                         .memberId(memberId)
                         .websiteId(dislike.getWebsite().getId())
                         .action("dislike")
+                        .isAdded(dislikeRepository.existsByWebsiteIdAndMemberId(memberId, dislike.getWebsite().getId()))
                         .dislikeCount(dislikeRepository.countByWebsiteId(dislike.getWebsite().getId()))
                         .build())
                 .toList();
@@ -184,19 +188,55 @@ public class DefaultActionService implements ActionService{
     }
 
     @Override
+    public ActionResponseDto getAllActionStatus(List<Long> websiteIds) {
+        List<Long> likeCounts = likeRepository.countByWebsiteIdIn(websiteIds);
+        List<Long> dislikeCounts = dislikeRepository.countByWebsiteIdIn(websiteIds);
+        List<Long> bookmarkCounts = bookmarkRepository.countByWebsiteIdIn(websiteIds);
+
+        List<ActionDto> actionDtos = new ArrayList<>();
+        for (int i = 0; i < websiteIds.size(); i++) {
+            Long websiteId = websiteIds.get(i);
+
+            actionDtos.add(
+                    ActionDto.builder()
+                    .websiteId(websiteId)
+                    .action("like")
+                    .likeCount(likeCounts.get(i))
+                    .build());
+
+            actionDtos.add(ActionDto.builder()
+                    .websiteId(websiteId)
+                    .action("dislike")
+                    .dislikeCount(dislikeCounts.get(i))
+                    .build());
+
+            actionDtos.add(ActionDto.builder()
+                    .websiteId(websiteId)
+                    .action("bookmark")
+                    .bookmarkCount(bookmarkCounts.get(i))
+                    .build());
+        }
+
+        return ActionResponseDto.builder()
+                .actionDtos(actionDtos)
+                .build();
+    }
+
+    @Override
     public WebsiteLikeRateDto calculateWebsiteRatings(List<ActionDto> actionDtos) {
 
-        BigDecimal rate = BigDecimal.ZERO;
-        BigDecimal like = BigDecimal.ZERO;
-        BigDecimal dislike = BigDecimal.ZERO;
-        BigDecimal total = BigDecimal.ZERO;
+        BigDecimal zero = BigDecimal.ZERO;
+        BigDecimal rate = zero;
+        BigDecimal like = zero;
+        BigDecimal dislike = zero;
+        BigDecimal total = zero;
 
         for (ActionDto actionDto : actionDtos) {
             Long websiteId = actionDto.getWebsiteId();
 
             // 각 웹사이트의 좋아요 및 싫어요 개수 조회
-            long likeCount = likeRepository.countByWebsiteIdAndAction(websiteId, "like");
-            long dislikeCount = dislikeRepository.countByWebsiteIdAndAction(websiteId, "dislike");
+            long likeCount = likeRepository.countByWebsiteId(websiteId);
+            long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
 
             like = BigDecimal.valueOf(likeCount);
             dislike = BigDecimal.valueOf(dislikeCount);

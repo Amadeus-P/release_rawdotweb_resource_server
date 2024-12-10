@@ -10,8 +10,8 @@ public interface ActionService {
     void setStatusAction(ActionDto actionDto);
 
     ActionResponseDto getMemberActionStatus(Long memberId);
-
     ActionResponseDto getWebsiteActionStatus(Long websiteId);
+    ActionResponseDto getAllActionStatus(List<Long> websiteIds);
 
     WebsiteLikeRateDto calculateWebsiteRatings(List<ActionDto> actionDtos);
 }

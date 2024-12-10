@@ -14,4 +14,6 @@ public interface LikeRepository extends JpaRepository<Likes, Long> {
     List<Likes> findAllByMemberId(Long memberId);
     Long countByWebsiteId(Long likedWebsiteId);
     Long countByWebsiteIdAndAction(Long websiteId, String action);
+
+    List<Long> countByWebsiteIdIn(List<Long> websiteIds);
 }
