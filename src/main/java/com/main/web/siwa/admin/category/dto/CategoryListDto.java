@@ -16,8 +16,6 @@ public class CategoryListDto {
 
     private Long id;
     private String name;
-    private String korName;
-    private String engName;
     private Long parentId;
     private String iconName;
 

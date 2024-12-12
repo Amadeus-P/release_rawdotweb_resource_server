@@ -14,8 +14,6 @@ import java.util.List;
 public class CategoryUpdateDto {
     private Long id;
     private String name;
-    private String korName;
-    private String engName;
     private Long parentId;
     private String iconName;
 

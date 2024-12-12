@@ -1,5 +1,6 @@
 package com.main.web.siwa.admin.member.service;
 
+import com.main.web.siwa.admin.member.dto.MemberUpdateDto;
 import com.main.web.siwa.auth.dto.SignupRequestDto;
 import com.main.web.siwa.auth.dto.SignupResponseDto;
 import com.main.web.siwa.entity.Member;
@@ -44,27 +45,26 @@ public class DefaultMemberService implements MemberService {
     }
 
     @Override
-    public MemberListDto update(MemberListDto memberListDto) {
+    public MemberListDto update(MemberUpdateDto memberUpdateDto) {
         Member member = memberRepository
-                .findById(memberListDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + memberListDto.getId()));
+                .findById(memberUpdateDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + memberUpdateDto.getId()));
 
         // 일괄 업데이트가 아닌 부분 업데이트 로직을 구현함
-        if(memberListDto.getUsername() != null)
-            member.setUsername(memberListDto.getUsername());
-        if(memberListDto.getProfileImage() != null)
-            member.setProfileImage(memberListDto.getProfileImage());
-        if(memberListDto.getProfileName() != null)
-            member.setProfileName(memberListDto.getProfileName());
-        if(memberListDto.getPassword() != null)
-            member.setPassword(memberListDto.getPassword());
+        if(memberUpdateDto.getUsername() != null)
+            member.setUsername(memberUpdateDto.getUsername());
+        if(memberUpdateDto.getProfileImage() != null)
+            member.setProfileImage(memberUpdateDto.getProfileImage());
+        if(memberUpdateDto.getProfileName() != null)
+            member.setProfileName(memberUpdateDto.getProfileName());
+        if(memberUpdateDto.getPassword() != null)
+            member.setPassword(memberUpdateDto.getPassword());
 
         memberRepository.save(member);
 
-        // 업데이트 된 웹사이트 가져오기
         Member updateMember = memberRepository
-                .findById(memberListDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + memberListDto.getId()));
+                .findById(memberUpdateDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + memberUpdateDto.getId()));
 
         return modelMapper.map(updateMember, MemberListDto.class);
     }

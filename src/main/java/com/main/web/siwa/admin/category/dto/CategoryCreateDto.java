@@ -14,8 +14,6 @@ import java.util.List;
 public class CategoryCreateDto {
     private Long id;
     private String name;
-    private String korName;
-    private String engName;
     private String iconName;
     private Long parentId;
 
