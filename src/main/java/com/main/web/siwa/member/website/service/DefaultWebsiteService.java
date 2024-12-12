@@ -40,23 +40,24 @@ public class DefaultWebsiteService implements WebsiteService {
         this.modelMapper = modelMapper;
     }
 
-    // 전달 받은 데이터를
+    // 전달 받은 데이터를 꺼내서
     @Override
     public WebsiteResponseDto getList(WebsiteSearchDto websiteSearchDto) {
-        return getList(websiteSearchDto.getPage(), websiteSearchDto.getKeyWord(), websiteSearchDto.getCategoryId());
+        return getList(websiteSearchDto.getPage(), websiteSearchDto.getSize(), websiteSearchDto.getKeyWord(), websiteSearchDto.getCategoryId());
     }
     
-    // 여기서 꺼내 쓰기
+    // 여기서 쓰기
     @Override
-    public WebsiteResponseDto getList(Integer page, String keyWord, Long categoryId) {
-        System.out.println("categoryId" + categoryId);
-        System.out.println("keyWord" + keyWord);
-        System.out.println("page" + page);
+    public WebsiteResponseDto getList(Integer page, Integer size, String keyWord, Long categoryId) {
+        System.out.println("categoryId: " + categoryId);
+        System.out.println("keyWord: " + keyWord);
+        System.out.println("page: " + page);
+        System.out.println("size: " + size);
 
-        int size = 30; // 페이지당 보여줄 웹사이트 개수
-        if (page == null || page < 1) {
+        if(size == null)
+            size  = 30;
+        if (page == null || page < 1)
             page = 1;
-        }
         Sort sort = Sort.by("regDate").descending();
         Pageable pageable = PageRequest.of(page-1, size, sort); // 0
         Page<Website> websitePage = websiteRepository.findAll(keyWord, categoryId, page, size);

@@ -6,7 +6,7 @@ import com.main.web.siwa.member.website.dto.*;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface WebsiteService {
-    WebsiteResponseDto getList(Integer page, String title, Long categoryId);
+    WebsiteResponseDto getList(Integer page,Integer size, String title, Long categoryId);
     WebsiteResponseDto getList(WebsiteSearchDto websiteSearchDto);
 
     WebsiteListDto getById(Long id);

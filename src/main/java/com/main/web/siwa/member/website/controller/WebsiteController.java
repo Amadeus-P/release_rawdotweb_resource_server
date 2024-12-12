@@ -24,7 +24,7 @@ public class WebsiteController {
     public ResponseEntity<WebsiteResponseDto> getList(
             @ModelAttribute WebsiteSearchDto websiteSearchDto
     ) {
-        if(websiteSearchDto.getPage() == null || websiteSearchDto.getSize() < 1) {
+        if(websiteSearchDto.getPage() == null || websiteSearchDto.getPage() < 1) {
             websiteSearchDto.setPage(1);
         }
         if(websiteSearchDto.getKeyWord() == null) {
