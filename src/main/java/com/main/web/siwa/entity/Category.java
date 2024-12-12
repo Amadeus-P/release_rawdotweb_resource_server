@@ -28,12 +28,6 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "kor_name")
-    private String korName;
-
-    @Column(name = "eng_name")
-    private String engName;
-
     @Column(name = "icon_name")
     private String iconName;
 

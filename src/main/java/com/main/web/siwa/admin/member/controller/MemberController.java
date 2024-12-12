@@ -2,6 +2,7 @@ package com.main.web.siwa.admin.member.controller;
 
 import com.main.web.siwa.admin.member.dto.MemberListDto;
 import com.main.web.siwa.admin.member.dto.MemberResponseDto;
+import com.main.web.siwa.admin.member.dto.MemberUpdateDto;
 import com.main.web.siwa.admin.member.service.MemberService;
 import com.main.web.siwa.admin.member.dto.MemberSearchDto;
 import org.springframework.http.HttpStatus;
@@ -37,11 +38,11 @@ public class MemberController {
 
     @PutMapping("/{memberId}")
     public ResponseEntity<MemberListDto> update(
-            MemberListDto memberListDto,
+            @ModelAttribute MemberUpdateDto memberUpdateDto,
             @PathVariable(value = "memberId", required = true) Long memberId
     ) {
-        memberListDto.setId(memberId);
-        return new ResponseEntity<>(memberService.update(memberListDto), HttpStatus.OK);
+        memberUpdateDto.setId(memberId);
+        return new ResponseEntity<>(memberService.update(memberUpdateDto), HttpStatus.OK);
     }
 
     // 1개 삭제(무조건 개별 삭제할 것)
