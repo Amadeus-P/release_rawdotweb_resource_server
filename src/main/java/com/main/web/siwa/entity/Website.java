@@ -28,6 +28,9 @@ public class Website {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "description", length = 1000)
+    private String description;
+
 //    @ColumnDefault("current_timestamp()")
     @Column(name = "reg_date", nullable = false, updatable = false)
     private Instant regDate;
@@ -35,6 +38,14 @@ public class Website {
     @PrePersist
     protected void onCreate() {
         this.regDate = Instant.now();
+    }
+
+    @Column(name = "updated_date")
+    private Instant updatedDate;
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedDate = Instant.now();
     }
 
     // 상위 테이블(부모 테이블)

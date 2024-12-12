@@ -32,6 +32,8 @@ public class ProfileController {
     public ResponseEntity<ProfileListDto> getOne(
             @PathVariable(value = "memberId", required = true) Long memberId
     ) {
+
+        System.out.println("========================profileService.getById(memberId)" + profileService.getById(memberId));
         return new ResponseEntity<>(profileService.getById(memberId),HttpStatus.OK);
     }
 

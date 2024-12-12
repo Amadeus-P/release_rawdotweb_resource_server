@@ -17,6 +17,9 @@ public class Likes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "action", nullable = false)
+    private String action;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "website_id")
     private Website website;

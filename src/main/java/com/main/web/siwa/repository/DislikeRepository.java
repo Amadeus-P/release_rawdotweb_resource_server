@@ -12,4 +12,7 @@ public interface DislikeRepository extends JpaRepository<Dislike, Long> {
     Optional<Dislike> findByWebsiteAndMember(Website website, Member member);
     boolean existsByWebsiteIdAndMemberId(Long memberId, Long websiteId);
     List<Dislike> findAllByMemberId(Long memberId);
+    Long countByWebsiteId(Long dislikedWebsiteId);
+    Long countByWebsiteIdAndAction(Long websiteId, String action);
+    List<Long> countByWebsiteIdIn(List<Long> websiteIds);
 }
