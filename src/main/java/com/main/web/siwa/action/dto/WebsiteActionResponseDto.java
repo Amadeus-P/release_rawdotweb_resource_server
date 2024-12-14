@@ -5,10 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class WebsiteLikeRateDto {
-    private Integer likeRate;
+public class WebsiteActionResponseDto {
+    private List<WebsiteActionDto> websiteActionDtos;
 }

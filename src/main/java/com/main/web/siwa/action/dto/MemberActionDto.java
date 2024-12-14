@@ -9,12 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ActionDto {
+public class MemberActionDto {
     private Long memberId;
     private Long websiteId;
     private String action;
     private Boolean isAdded;
-    private Long likeCount;
-    private Long dislikeCount;
-    private Long bookmarkCount;
 }

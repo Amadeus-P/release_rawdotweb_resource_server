@@ -1,8 +1,9 @@
 package com.main.web.siwa.action.controller;
 
-import com.main.web.siwa.action.dto.ActionDto;
-import com.main.web.siwa.action.dto.ActionResponseDto;
-import com.main.web.siwa.action.dto.WebsiteLikeRateDto;
+import com.main.web.siwa.action.dto.MemberActionDto;
+import com.main.web.siwa.action.dto.MemberActionResponseDto;
+import com.main.web.siwa.action.dto.WebsiteActionDto;
+import com.main.web.siwa.action.dto.WebsiteActionResponseDto;
 import com.main.web.siwa.action.service.ActionService;
 import com.main.web.siwa.utility.GetAuthMemberId;
 import org.springframework.http.HttpStatus;
@@ -23,42 +24,27 @@ public class ActionController {
     }
     @PostMapping()
     public ResponseEntity<?> setStatusAction(
-            @RequestBody ActionDto actionDto
+            @RequestBody MemberActionDto memberActionDto
     ) {
         try {
             GetAuthMemberId authenticatedId = new GetAuthMemberId();
             Long memberId = authenticatedId.getAuthMemberId();
 
-            System.out.println("actionDto.getWebsiteId() " + actionDto.getWebsiteId());
-            System.out.println("actionDto.getMemberId() " + actionDto.getMemberId());
-            System.out.println("actionDto.getAction() " + actionDto.getAction());
-            System.out.println("actionDto.getIsAdded() " + actionDto.getIsAdded());
+            System.out.println("=========/actions=============");
+            System.out.println("actionDto.getWebsiteId() " + memberActionDto.getWebsiteId());
+            System.out.println("actionDto.getMemberId() " + memberActionDto.getMemberId());
+            System.out.println("actionDto.getAction() " + memberActionDto.getAction());
+            System.out.println("actionDto.getIsAdded() " + memberActionDto.getIsAdded());
 
-            actionDto.setMemberId(memberId);
-            actionService.setStatusAction(actionDto);
-            String message = actionDto.getIsAdded() ? "추가되었습니다." : "취소되었습니다.";
+            memberActionDto.setMemberId(memberId);
+            actionService.setStatusAction(memberActionDto);
+            String message = memberActionDto.getIsAdded() ? "추가되었습니다." : "취소되었습니다.";
             return ResponseEntity.ok(Map.of("message", message));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("message", "상호작용 처리 중 오류가 발생했습니다."));
-        }
-    }
-    @GetMapping("website/rating")
-    public  ResponseEntity<?> calculateWebsiteRatings(
-            @ModelAttribute ActionResponseDto responseDto
-    ) {
-        try {
-            System.out.println("responseDto.getActionDtos()" + responseDto.getActionDtos());
-            // 서비스 레이어 호출
-            WebsiteLikeRateDto resultDto = actionService.calculateWebsiteRatings(responseDto.getActionDtos());
-            System.out.println("=================resultDto" + resultDto);
-
-            return ResponseEntity.ok(resultDto); // 상태 반환
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("message", "웹사이트 상태를 불러오는 중 오류가 발생했습니다."));
         }
     }
     @GetMapping("website")
@@ -68,10 +54,12 @@ public class ActionController {
     ) {
         // 여러 개의 웹사이트 아이디를 어떻게 처리?
         try {
-            System.out.println("websiteIds " + websiteIds);
+            System.out.println("=========/actions/website=============");
+            System.out.println("============================websiteIds " + websiteIds);
             // 서비스 레이어 호출
-            ActionResponseDto resultDto = actionService.getAllActionStatus(websiteIds);
-            System.out.println("=================resultDto" + resultDto);
+            System.out.println("actionService.getMemberAllActionStatus(websiteIds): " + actionService.getWebsiteListActionStatus(websiteIds));
+            WebsiteActionResponseDto resultDto = actionService.getWebsiteListActionStatus(websiteIds);
+            System.out.println("=================resultDto: " + resultDto);
 
             return ResponseEntity.ok(resultDto); // 상태 반환
         } catch (Exception e) {
@@ -84,7 +72,9 @@ public class ActionController {
             @PathVariable(value = "websiteId", required = true) Long websiteId
     ) {
         try {
-            ActionResponseDto responseDto = actionService.getWebsiteActionStatus(websiteId);
+            System.out.println("=========/actions/website/{websiteId}=============");
+            WebsiteActionDto responseDto = actionService.getOneWebsiteActionStatus(websiteId);
+
             return ResponseEntity.ok(responseDto); // 상태 반환
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));
@@ -94,13 +84,13 @@ public class ActionController {
         }
     }
 
-    @GetMapping("member/{memberId}")
-    public ResponseEntity<?> getMemberActionStatus(
-            @PathVariable(value = "memberId", required = true) Long memberId
-    ) {
+    @GetMapping("member")
+    public ResponseEntity<?> getMemberActionStatus() {
         try {
             // 서비스 레이어 호출
-            ActionResponseDto responseDto = actionService.getMemberActionStatus(memberId);
+            MemberActionResponseDto responseDto = actionService.getMemberActionStatus();
+            System.out.println("===================member/{memberId}==================");
+            System.out.println("responseDto: " + responseDto);
             return ResponseEntity.ok(responseDto); // 상태 반환
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));

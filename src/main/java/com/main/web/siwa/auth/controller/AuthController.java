@@ -100,7 +100,7 @@ public class AuthController {
 
 
 
-    // 자난 시간 수업 내용 400 에러 상태
+    // 400 에러 상태
 //    @PostMapping("signin")
 //    public ResponseEntity<?> signin(@RequestParam("username") String username,
 //                                 @RequestParam("password") String password){
