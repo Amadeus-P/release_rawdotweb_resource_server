@@ -1,7 +1,5 @@
 package com.main.web.siwa.member.website.service;
 
-import com.main.web.siwa.action.dto.ActionDto;
-import com.main.web.siwa.action.dto.ActionResponseDto;
 import com.main.web.siwa.entity.*;
 import com.main.web.siwa.member.website.dto.*;
 import com.main.web.siwa.repository.*;
@@ -55,7 +53,7 @@ public class DefaultWebsiteService implements WebsiteService {
         System.out.println("size: " + size);
 
         if(size == null)
-            size  = 30;
+            size  = 6;
         if (page == null || page < 1)
             page = 1;
         Sort sort = Sort.by("regDate").descending();

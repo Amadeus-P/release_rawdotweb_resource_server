@@ -1,17 +1,16 @@
 package com.main.web.siwa.action.service;
 
-import com.main.web.siwa.action.dto.ActionDto;
-import com.main.web.siwa.action.dto.ActionResponseDto;
-import com.main.web.siwa.action.dto.WebsiteLikeRateDto;
+import com.main.web.siwa.action.dto.MemberActionDto;
+import com.main.web.siwa.action.dto.MemberActionResponseDto;
+import com.main.web.siwa.action.dto.WebsiteActionDto;
+import com.main.web.siwa.action.dto.WebsiteActionResponseDto;
 import com.main.web.siwa.entity.*;
 import com.main.web.siwa.repository.*;
+import com.main.web.siwa.utility.GetAuthMemberId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DefaultActionService implements ActionService{
@@ -38,14 +37,14 @@ public class DefaultActionService implements ActionService{
 
     @Override
     @Transactional
-    public void setStatusAction(ActionDto actionDto) {
-        String action = actionDto.getAction();
-        boolean isAdded = actionDto.getIsAdded();
+    public void setStatusAction(MemberActionDto memberActionDto) {
+        String action = memberActionDto.getAction();
+        boolean isAdded = memberActionDto.getIsAdded();
 
-        Member member = memberRepository.findById(actionDto.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID: " + actionDto.getMemberId()));
-        Website website = websiteRepository.findById(actionDto.getWebsiteId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid website ID: " + actionDto.getWebsiteId()));
+        Member member = memberRepository.findById(memberActionDto.getMemberId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member ID: " + memberActionDto.getMemberId()));
+        Website website = websiteRepository.findById(memberActionDto.getWebsiteId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid website ID: " + memberActionDto.getWebsiteId()));
 
         // 클라이언트에서 보내는 값과 일치하는 것을 찾기
         switch (action.toLowerCase()) {
@@ -55,7 +54,7 @@ public class DefaultActionService implements ActionService{
                         Likes likes = new Likes();
                         likes.setMember(member);
                         likes.setWebsite(website);
-                        likes.setAction(actionDto.getAction());
+                        likes.setAction(memberActionDto.getAction());
                         likeRepository.save(likes);
                     }
 
@@ -73,7 +72,7 @@ public class DefaultActionService implements ActionService{
                         Dislike dislikes = new Dislike();
                         dislikes.setMember(member);
                         dislikes.setWebsite(website);
-                        dislikes.setAction(actionDto.getAction());
+                        dislikes.setAction(memberActionDto.getAction());
                         dislikeRepository.save(dislikes);
                     }
                 } else {
@@ -90,7 +89,7 @@ public class DefaultActionService implements ActionService{
                         Bookmark bookmark = new Bookmark();
                         bookmark.setMember(member);
                         bookmark.setWebsite(website);
-                        bookmark.setAction(actionDto.getAction());
+                        bookmark.setAction(memberActionDto.getAction());
                         bookmarkRepository.save(bookmark);
                     }
                 } else {
@@ -107,152 +106,184 @@ public class DefaultActionService implements ActionService{
     }
 
     @Override
-    public ActionResponseDto getMemberActionStatus(Long memberId) {
+    public MemberActionResponseDto getMemberActionStatus() {
+        // 회원의 액션 상태
+
+        GetAuthMemberId authenticatedId = new GetAuthMemberId();
+        Long memberId = authenticatedId.getAuthMemberId();
 
         // 북마크된 웹사이트 ID 목록 가져오기
-
-        List<ActionDto> bookmarkedActions = bookmarkRepository.findAllByMemberId(memberId).stream()
-                .map(bookmark -> ActionDto.builder()
+        List<MemberActionDto> bookmarkedActions = bookmarkRepository.findAllByMemberId(memberId).stream()
+                .map(bookmark -> MemberActionDto.builder()
                         .memberId(memberId)
                         .websiteId(bookmark.getWebsite().getId())
                         .action("bookmark")
-                        .isAdded(bookmarkRepository.existsByWebsiteIdAndMemberId(memberId, bookmark.getWebsite().getId()))
-                        .bookmarkCount(bookmarkRepository.countByWebsiteId(bookmark.getWebsite().getId()))
+                        .isAdded(true) // 이미 등록된 상태만 가져오기 때문에 true
+//                        .bookmarkCount(bookmarkRepository.countByWebsiteId(bookmark.getWebsite().getId()))
                         .build())
                 .toList();
 
         // 좋아요된 웹사이트 ID 목록 가져오기
-        List<ActionDto> likedActions = likeRepository.findAllByMemberId(memberId).stream()
-                .map(like -> ActionDto.builder()
+        List<MemberActionDto> likedActions = likeRepository.findAllByMemberId(memberId).stream()
+                .map(like -> MemberActionDto.builder()
                         .memberId(memberId)
                         .websiteId(like.getWebsite().getId())
                         .action("like")
-                        .isAdded(likeRepository.existsByWebsiteIdAndMemberId(memberId, like.getWebsite().getId()))
-                        .likeCount(likeRepository.countByWebsiteId(like.getWebsite().getId()))
+                        .isAdded(true)
+//                        .likeCount(likeRepository.countByWebsiteId(like.getWebsite().getId()))
                         .build())
                 .toList();
 
-        // 싫어요된 웹사이트 ID 목록 가져오기
-        List<ActionDto> dislikedActions = dislikeRepository.findAllByMemberId(memberId).stream()
-                .map(dislike -> ActionDto.builder()
+        // 싫어요한 웹사이트 ID 목록 가져오기
+        List<MemberActionDto> dislikedActions = dislikeRepository.findAllByMemberId(memberId).stream()
+                .map(dislike -> MemberActionDto.builder()
                         .memberId(memberId)
                         .websiteId(dislike.getWebsite().getId())
                         .action("dislike")
-                        .isAdded(dislikeRepository.existsByWebsiteIdAndMemberId(memberId, dislike.getWebsite().getId()))
-                        .dislikeCount(dislikeRepository.countByWebsiteId(dislike.getWebsite().getId()))
+                        .isAdded(true)
+//                        .dislikeCount(dislikeRepository.countByWebsiteId(dislike.getWebsite().getId()))
                         .build())
                 .toList();
 
-        List<ActionDto> actionDtos = new ArrayList<>();
-        actionDtos.addAll(bookmarkedActions);
-        actionDtos.addAll(likedActions);
-        actionDtos.addAll(dislikedActions);
+        List<MemberActionDto> memberActionDtos = new ArrayList<>();
+        memberActionDtos.addAll(bookmarkedActions);
+        memberActionDtos.addAll(likedActions);
+        memberActionDtos.addAll(dislikedActions);
 
-        return ActionResponseDto.builder()
-                .actionDtos(actionDtos)
+        System.out.println("============getMemberActionStatus=============");
+        System.out.println("ActionResponseDto" + MemberActionResponseDto.builder()
+                .memberActionDtos(memberActionDtos)
+                .build());
+        return MemberActionResponseDto.builder()
+                .memberActionDtos(memberActionDtos)
                 .build();
     }
 
     @Override
-    public ActionResponseDto getWebsiteActionStatus(Long websiteId) {
-        // 웹사이트 확인
+    public WebsiteActionDto getOneWebsiteActionStatus(Long websiteId) {
+        // 상세페이지의 액션 상태
         Website website = websiteRepository.findById(websiteId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid website ID: " + websiteId));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다."));
+        Long memberId = website.getMember().getId();
+        String profileName = website.getMember().getProfileName();
 
         Long likeCount = likeRepository.countByWebsiteId(websiteId);
         Long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
         Long bookmarkCount = bookmarkRepository.countByWebsiteId(websiteId);
 
-        List<ActionDto> actionDtos = new ArrayList<>();
+        System.out.println("likeCount: " + likeCount);
+        System.out.println("dislikeCount: " + dislikeCount);
+        System.out.println("bookmarkCount: " + bookmarkCount);
 
-        actionDtos.add(ActionDto.builder()
+
+        return WebsiteActionDto.builder()
+                .memberId(memberId)
+                .profileName(profileName)
                 .websiteId(websiteId)
-                .action("like")
                 .likeCount(likeCount)
-                .build());
-        actionDtos.add(ActionDto.builder()
-                .websiteId(websiteId)
-                .action("dislike")
                 .dislikeCount(dislikeCount)
-                .build());
-        actionDtos.add(ActionDto.builder()
-                .websiteId(websiteId)
-                .action("bookmark")
                 .bookmarkCount(bookmarkCount)
-                .build());
-
-        return ActionResponseDto
-                .builder()
-                .actionDtos(actionDtos)
                 .build();
     }
 
     @Override
-    public ActionResponseDto getAllActionStatus(List<Long> websiteIds) {
-        List<Long> likeCounts = likeRepository.countByWebsiteIdIn(websiteIds);
-        List<Long> dislikeCounts = dislikeRepository.countByWebsiteIdIn(websiteIds);
-        List<Long> bookmarkCounts = bookmarkRepository.countByWebsiteIdIn(websiteIds);
+    public WebsiteActionResponseDto getWebsiteListActionStatus(List<Long> websiteIds) {
+        // 목록 페이지의 액션 상태
 
-        List<ActionDto> actionDtos = new ArrayList<>();
-        for (int i = 0; i < websiteIds.size(); i++) {
-            Long websiteId = websiteIds.get(i);
+        List<Long> sortedWebsiteIds = new ArrayList<>(websiteIds);
+        Collections.sort(sortedWebsiteIds);
 
-            actionDtos.add(
-                    ActionDto.builder()
+        Long memberId = null;
+        try {// 회원
+            GetAuthMemberId authenticatedId = new GetAuthMemberId();
+            memberId = authenticatedId.getAuthMemberId();
+        } catch (Exception e) { // 비회원
+        }
+//        Long likeCount = likeRepository.countByWebsiteId(websiteId);
+//        Long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
+//        Long bookmarkCount = bookmarkRepository.countByWebsiteId(websiteId);
+//
+//        System.out.println("================getOneWebsiteActionStatus===============");
+//        System.out.println("likeCount: " + likeCount);
+//        System.out.println("dislikeCount: " + dislikeCount);
+//        System.out.println("bookmarkCount: " + bookmarkCount);
+
+//        dislikeRepository.existsByWebsiteIdAndMemberId(memberId, dislike.getWebsite().getId())
+        List<Object[]> AddedLikes = likeRepository.findLikeCountsByWebsiteIds(sortedWebsiteIds);
+        List<Object[]> AddedDislikes = dislikeRepository.findDislikeCountsByWebsiteIds(sortedWebsiteIds);
+        List<Object[]> AddedBookmarks = bookmarkRepository.findBookmarkCountsByWebsiteIds(sortedWebsiteIds);
+
+        System.out.println("=========getAllWebsiteActionStatus=============");
+//        System.out.println("AddedLikes: " + AddedLikes.toString());
+//        System.out.println("AddedDislikes: " + AddedDislikes.toString());
+//        System.out.println("AddedBookmarks: " + AddedBookmarks.toString());
+
+        Map<Long, Long> likeMap = new HashMap<>();
+        for (Object[] row : AddedLikes) {
+            Long wId = (Long) row[0];
+            Long count = (Long) row[1];
+            likeMap.put(wId, count);
+        }
+        Map<Long, Long> dislikeMap = new HashMap<>();
+        for (Object[] row : AddedDislikes) {
+            Long wId = (Long) row[0];
+            Long count = (Long) row[1];
+            dislikeMap.put(wId, count);
+        }
+        Map<Long, Long> bookmarkMap = new HashMap<>();
+        for (Object[] row : AddedBookmarks) {
+            Long wId = (Long) row[0];
+            Long count = (Long) row[1];
+            bookmarkMap.put(wId, count);
+        }
+        List<WebsiteActionDto> websiteActionDtos = new ArrayList<>();
+        for (Long websiteId : websiteIds) {
+            // 웹사이트 추천, 비추천, 북마크 수
+            Long likeCount = likeMap.getOrDefault(websiteId, 0L);
+            Long dislikeCount = dislikeMap.getOrDefault(websiteId, 0L);
+            Long bookmarkCount = bookmarkMap.getOrDefault(websiteId, 0L);
+
+//            System.out.println("likeCount: " + likeCount);
+//            System.out.println("dislikeCount: " + dislikeCount);
+//            System.out.println("bookmarkCount: " + bookmarkCount);
+
+            Boolean userLiked = likeRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
+            Boolean userDisliked = dislikeRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
+            Boolean userBookmarked = bookmarkRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
+
+//            System.out.println("userLiked: " + userLiked);
+//            System.out.println("userDisliked: " + userDisliked);
+//            System.out.println("userBookmarked: " + userBookmarked);
+
+            websiteActionDtos.add(WebsiteActionDto.builder()
+                    .memberId(memberId)
                     .websiteId(websiteId)
                     .action("like")
-                    .likeCount(likeCounts.get(i))
+                    .isAdded(userLiked)
+                    .likeCount(likeCount)
                     .build());
 
-            actionDtos.add(ActionDto.builder()
+            websiteActionDtos.add(WebsiteActionDto.builder()
+                    .memberId(memberId)
                     .websiteId(websiteId)
                     .action("dislike")
-                    .dislikeCount(dislikeCounts.get(i))
+                    .isAdded(userDisliked)
+                    .dislikeCount(dislikeCount)
                     .build());
 
-            actionDtos.add(ActionDto.builder()
+            websiteActionDtos.add(WebsiteActionDto.builder()
+                    .memberId(memberId)
                     .websiteId(websiteId)
                     .action("bookmark")
-                    .bookmarkCount(bookmarkCounts.get(i))
+                    .isAdded(userBookmarked)
+                    .bookmarkCount(bookmarkCount)
                     .build());
+
         }
 
-        return ActionResponseDto.builder()
-                .actionDtos(actionDtos)
-                .build();
-    }
-
-    @Override
-    public WebsiteLikeRateDto calculateWebsiteRatings(List<ActionDto> actionDtos) {
-
-        BigDecimal zero = BigDecimal.ZERO;
-        BigDecimal rate = zero;
-        BigDecimal like = zero;
-        BigDecimal dislike = zero;
-        BigDecimal total = zero;
-
-        for (ActionDto actionDto : actionDtos) {
-            Long websiteId = actionDto.getWebsiteId();
-
-            // 각 웹사이트의 좋아요 및 싫어요 개수 조회
-            long likeCount = likeRepository.countByWebsiteId(websiteId);
-            long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
-
-            like = BigDecimal.valueOf(likeCount);
-            dislike = BigDecimal.valueOf(dislikeCount);
-            total = like.add(dislike);
-
-            if (total.compareTo(BigDecimal.ZERO) > 0) {
-                rate = like.divide(total, 2, RoundingMode.HALF_UP) // 비율 계산, 소수점 2자리까지
-                        .multiply(BigDecimal.valueOf(100));// 퍼센트 계산
-            }
-        }
-        // 계산한 비율을 정수형으로 변환 (반올림)
-        int roundedRate = rate.setScale(0, RoundingMode.HALF_UP).intValue();
-
-        return WebsiteLikeRateDto
-                .builder()
-                .likeRate(roundedRate)
+//        System.out.println("actionDtos: " + actionDtos);
+        return WebsiteActionResponseDto.builder()
+                .websiteActionDtos(websiteActionDtos)
                 .build();
     }
 }

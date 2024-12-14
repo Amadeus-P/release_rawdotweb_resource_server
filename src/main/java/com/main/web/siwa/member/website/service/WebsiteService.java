@@ -1,7 +1,5 @@
 package com.main.web.siwa.member.website.service;
 
-import com.main.web.siwa.action.dto.ActionDto;
-import com.main.web.siwa.action.dto.ActionResponseDto;
 import com.main.web.siwa.member.website.dto.*;
 import org.springframework.web.multipart.MultipartFile;
 

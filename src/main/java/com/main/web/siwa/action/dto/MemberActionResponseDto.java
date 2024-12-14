@@ -10,6 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ActionResponseDto {
-    List<ActionDto> actionDtos;
+public class MemberActionResponseDto {
+    private List<MemberActionDto> memberActionDtos;
 }
