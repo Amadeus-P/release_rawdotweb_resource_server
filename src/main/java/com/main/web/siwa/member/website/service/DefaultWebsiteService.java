@@ -6,10 +6,7 @@ import com.main.web.siwa.repository.*;
 import com.main.web.siwa.websiteImage.dto.WebsiteImageListDto;
 import com.main.web.siwa.utility.FileUpload;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +28,7 @@ public class DefaultWebsiteService implements WebsiteService {
             WebsiteRepository websiteRepository,
             MemberRepository memberRepository,
             WebsiteImageRepository websiteImageRepository,
-            ModelMapper modelMapper){
+            ModelMapper modelMapper) {
         this.websiteRepository = websiteRepository;
         this.memberRepository = memberRepository;
         this.websiteImageRepository = websiteImageRepository;
@@ -43,24 +40,24 @@ public class DefaultWebsiteService implements WebsiteService {
     public WebsiteResponseDto getList(WebsiteSearchDto websiteSearchDto) {
         return getList(websiteSearchDto.getPage(), websiteSearchDto.getSize(), websiteSearchDto.getKeyWord(), websiteSearchDto.getCategoryId());
     }
-    
+
     // 여기서 쓰기
     @Override
     public WebsiteResponseDto getList(Integer page, Integer size, String keyWord, Long categoryId) {
+
+        System.out.println("====================WebsiteResponseDto getList==================");
         System.out.println("categoryId: " + categoryId);
         System.out.println("keyWord: " + keyWord);
         System.out.println("page: " + page);
         System.out.println("size: " + size);
 
-        if(size == null)
-            size  = 6;
-        if (page == null || page < 1)
-            page = 1;
         Sort sort = Sort.by("regDate").descending();
-        Pageable pageable = PageRequest.of(page-1, size, sort); // 0
+        Pageable pageable = PageRequest.of(page - 1, size, sort); // 0
         Page<Website> websitePage = websiteRepository.findAll(keyWord, categoryId, page, size);
 
-        // Entity를 DTO로 바꾸기 > Stream
+        System.out.println("pageable: " + pageable);
+        System.out.println("websitePage: " + websitePage);
+
         List<WebsiteListDto> websiteListDtos = websitePage
                 .getContent()
                 .stream()
@@ -91,7 +88,7 @@ public class DefaultWebsiteService implements WebsiteService {
         page = (page == null) ? 1 : page;
 
         // 페이지 구간
-        Integer offset = (page -1) % 5;
+        Integer offset = (page - 1) % 5;
 
         // 시작번호 구하기
         Integer startNum = page - offset;
@@ -120,11 +117,12 @@ public class DefaultWebsiteService implements WebsiteService {
     // GET + id
     @Override
     public WebsiteListDto getById(Long id) {
-       Website website =  websiteRepository
-               .findById(id)
-               .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + id));
+        Website website = websiteRepository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + id));
         return modelMapper.map(website, WebsiteListDto.class);
     }
+
     // POST
     @Override
     @Transactional
@@ -136,12 +134,12 @@ public class DefaultWebsiteService implements WebsiteService {
         if (image != null && !image.isEmpty()) {
             FileUpload fileUpload = new FileUpload();
             String savedImagePath = fileUpload.saveImage(image, "rawdotweb/images/website");
-            System.out.println("savedImagePath: " + savedImagePath);
-            
+            // System.out.println("savedImagePath: " + savedImagePath);
+
             // 경로 제외 파일명만
 //            String fileName = savedImagePath.substring(savedImagePath.lastIndexOf(File.separator) + 1); // 파일명 추출
             String fileName = Paths.get(savedImagePath).getFileName().toString();
-            System.out.println("Extracted File Name: " + fileName);
+            // System.out.println("Extracted File Name: " + fileName);
             // 3. WebsiteImage 엔티티 생성 및 저장
 
             WebsiteImage websiteImage = WebsiteImage.builder()
@@ -155,6 +153,7 @@ public class DefaultWebsiteService implements WebsiteService {
 
         return modelMapper.map(createdWebsite, WebsiteCreateDto.class);
     }
+
     // PUT
     @Override
     public WebsiteListDto update(WebsiteListDto websiteListDto, MultipartFile newImage) {
@@ -166,15 +165,15 @@ public class DefaultWebsiteService implements WebsiteService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 웹사이트입니다. id = " + websiteListDto.getId()));
 
         // 일괄 업데이트가 아닌 부분 업데이트 코드
-        if(websiteListDto.getTitle() != null)
+        if (websiteListDto.getTitle() != null)
             website.setTitle(websiteListDto.getTitle());
 
-        if(websiteListDto.getUrl() != null)
+        if (websiteListDto.getUrl() != null)
             website.setUrl(websiteListDto.getUrl());
 
-        if(websiteListDto.getCategory() != null)
+        if (websiteListDto.getCategory() != null)
             website.setCategory(modelMapper.map(websiteListDto.getCategory(), Category.class));
-        
+
         // 이미지 업데이트
         if (newImage != null && !newImage.isEmpty()) {
             FileUpload fileUpload = new FileUpload();
@@ -198,6 +197,7 @@ public class DefaultWebsiteService implements WebsiteService {
         return modelMapper.map(updatedWebsite, WebsiteListDto.class);
 
     }
+
     // DELETE
     @Override
     public void delete(Long id) {

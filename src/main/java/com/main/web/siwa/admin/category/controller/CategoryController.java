@@ -24,8 +24,8 @@ public class CategoryController {
             @RequestParam(value = "parentId", required = false) Long parentId
     ) {
         CategoryResponseDto responseDto = categoryService.getList(parentId);
-        System.out.println("responseDto: " + responseDto);
-        System.out.println("parentId: " + parentId);
+        // System.out.println("responseDto: " + responseDto);
+        // System.out.println("parentId: " + parentId);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
     @PostMapping

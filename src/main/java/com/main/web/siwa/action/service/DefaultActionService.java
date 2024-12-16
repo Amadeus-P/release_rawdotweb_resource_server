@@ -150,10 +150,10 @@ public class DefaultActionService implements ActionService{
         memberActionDtos.addAll(likedActions);
         memberActionDtos.addAll(dislikedActions);
 
-        System.out.println("============getMemberActionStatus=============");
-        System.out.println("ActionResponseDto" + MemberActionResponseDto.builder()
-                .memberActionDtos(memberActionDtos)
-                .build());
+        // System.out.println("============getMemberActionStatus=============");
+        // System.out.println("ActionResponseDto" + MemberActionResponseDto.builder()
+//                .memberActionDtos(memberActionDtos)
+//                .build());
         return MemberActionResponseDto.builder()
                 .memberActionDtos(memberActionDtos)
                 .build();
@@ -171,9 +171,9 @@ public class DefaultActionService implements ActionService{
         Long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
         Long bookmarkCount = bookmarkRepository.countByWebsiteId(websiteId);
 
-        System.out.println("likeCount: " + likeCount);
-        System.out.println("dislikeCount: " + dislikeCount);
-        System.out.println("bookmarkCount: " + bookmarkCount);
+        // System.out.println("likeCount: " + likeCount);
+        // System.out.println("dislikeCount: " + dislikeCount);
+        // System.out.println("bookmarkCount: " + bookmarkCount);
 
 
         return WebsiteActionDto.builder()
@@ -203,21 +203,22 @@ public class DefaultActionService implements ActionService{
 //        Long dislikeCount = dislikeRepository.countByWebsiteId(websiteId);
 //        Long bookmarkCount = bookmarkRepository.countByWebsiteId(websiteId);
 //
-//        System.out.println("================getOneWebsiteActionStatus===============");
-//        System.out.println("likeCount: " + likeCount);
-//        System.out.println("dislikeCount: " + dislikeCount);
-//        System.out.println("bookmarkCount: " + bookmarkCount);
+//        // System.out.println("================getOneWebsiteActionStatus===============");
+//        // System.out.println("likeCount: " + likeCount);
+//        // System.out.println("dislikeCount: " + dislikeCount);
+//        // System.out.println("bookmarkCount: " + bookmarkCount);
 
 //        dislikeRepository.existsByWebsiteIdAndMemberId(memberId, dislike.getWebsite().getId())
         List<Object[]> AddedLikes = likeRepository.findLikeCountsByWebsiteIds(sortedWebsiteIds);
         List<Object[]> AddedDislikes = dislikeRepository.findDislikeCountsByWebsiteIds(sortedWebsiteIds);
         List<Object[]> AddedBookmarks = bookmarkRepository.findBookmarkCountsByWebsiteIds(sortedWebsiteIds);
 
-        System.out.println("=========getAllWebsiteActionStatus=============");
-//        System.out.println("AddedLikes: " + AddedLikes.toString());
-//        System.out.println("AddedDislikes: " + AddedDislikes.toString());
-//        System.out.println("AddedBookmarks: " + AddedBookmarks.toString());
+        // System.out.println("=========getAllWebsiteActionStatus=============");
+//        // System.out.println("AddedLikes: " + AddedLikes.toString());
+//        // System.out.println("AddedDislikes: " + AddedDislikes.toString());
+//        // System.out.println("AddedBookmarks: " + AddedBookmarks.toString());
 
+        // websiteId : count
         Map<Long, Long> likeMap = new HashMap<>();
         for (Object[] row : AddedLikes) {
             Long wId = (Long) row[0];
@@ -243,17 +244,17 @@ public class DefaultActionService implements ActionService{
             Long dislikeCount = dislikeMap.getOrDefault(websiteId, 0L);
             Long bookmarkCount = bookmarkMap.getOrDefault(websiteId, 0L);
 
-//            System.out.println("likeCount: " + likeCount);
-//            System.out.println("dislikeCount: " + dislikeCount);
-//            System.out.println("bookmarkCount: " + bookmarkCount);
+//            // System.out.println("likeCount: " + likeCount);
+//            // System.out.println("dislikeCount: " + dislikeCount);
+//            // System.out.println("bookmarkCount: " + bookmarkCount);
 
             Boolean userLiked = likeRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
             Boolean userDisliked = dislikeRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
             Boolean userBookmarked = bookmarkRepository.existsByWebsiteIdAndMemberId(websiteId, memberId);
 
-//            System.out.println("userLiked: " + userLiked);
-//            System.out.println("userDisliked: " + userDisliked);
-//            System.out.println("userBookmarked: " + userBookmarked);
+//            // System.out.println("userLiked: " + userLiked);
+//            // System.out.println("userDisliked: " + userDisliked);
+//            // System.out.println("userBookmarked: " + userBookmarked);
 
             websiteActionDtos.add(WebsiteActionDto.builder()
                     .memberId(memberId)
@@ -281,7 +282,7 @@ public class DefaultActionService implements ActionService{
 
         }
 
-//        System.out.println("actionDtos: " + actionDtos);
+//        // System.out.println("actionDtos: " + actionDtos);
         return WebsiteActionResponseDto.builder()
                 .websiteActionDtos(websiteActionDtos)
                 .build();

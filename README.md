@@ -1,80 +1,41 @@
+# 박시현
+**풀스택**
 
+---
 ## 프로젝트
+[개인 프로젝트] 공용 북마크 서비스 - RAWDOTWEB
 
--- 개발기간<br/>
-24.07 ~
+약 20억개의 웹사이트 중 
+실제 보여지는 약 3억 개의 웹사이트 중 
+실질적으로 필요한 웹사이트를 정제해서 관리하는 공용 북마크 서비스
 
-<br/>
--- 개발 인원 <br/>
+### 개발기간
+24.07 ~ 구현 중
+
+### 개발 인원
 1명
-<br/>
 
--- 개발환경<br/>
-Spring Boot 3.3.4<br/>
-MariaDB
-
-라이브러리: JPA, ModelMapper, Lombok<br/>
-보안: JWT 사용<br/>
-
-## 모놀로식 Layered 하이브리드 아키텍처 <br/>
-<pre>
-SIWA_Project
-├── .idea
-├── .mvn
-├── .vscode
-├── rawdotweb
-├── src
-│   └── main
-│       └── java
-│           └── com.main.web.siwa
-│               ├── admin
-│               │   ├── category
-│               │   │   ├── controller
-│               │   │   ├── dto
-│               │   │   ├── service
-│               │   ├── member
-│               │   │   ├── controller
-│               │   │   ├── dto
-│               │   │   ├── service
-│               │   └── website
-│               │       ├── controller
-│               │       ├── dto
-│               │       ├── service
-│               ├── auth
-│               │   ├── controller
-│               │   ├── dto
-│               │   ├── service
-│               ├── config
-│               ├── entity
-│               ├── error
-│               ├── filter
-│               ├── ghost
-│               │   ├── controller
-│               │   ├── dto
-│               │   ├── service
-│               ├── member
-│               │   ├── comment
-│               │   │   ├── controller
-│               │   │   ├── dto
-│               │   │   ├── service
-│               │   ├── profile
-│               │   │   ├── controller
-│               │   │   ├── dto
-│               │   │   ├── service
-│               │   └── website
-│               │       ├── controller
-│               │       ├── dto
-│               │       ├── service
-│               ├── repository
-│               ├── utility
-│               └── websiteImage
-│                   ├── controller
-│                   ├── dto
-│                   ├── service
-└── SiwaProjectApplication
-
-</pre>
+### 기술스택
+`JSES6`, `Vue3`, `Nuxt3`, `Java 21`, `Spring Boot 3.3.4`
+`MariaDB`, `JPA`
+---
+### 개발 방향(설계)
+핵심 기능을 우선순위로 두어 구현에 초점을 맞추되 
+프론트와 백엔드 양쪽에서 생각하기 편한 코드를 작성하려고 노력했습니다.
 
 
-## 홈페이지(미배포)
-https://www.rawdotweb.com
+---
+### 문제 해결 사례(구현)
+JPA로 구현하기 힘든 부분을 JPQL, Criteria으로 JOIN을 바꾸어 성능 개선 작성
+복잡한 비지니스 로직을 어떻게 풀지 고민하기(ERD 설계, 모델링 객체관계를 어떻게 설계했는지 작성)
+
+---
+### 단위 테스트(검증)
+
+
+---
+### 포트폴리오
+### URL
+https://github.com/Amadeus-P/release_rowdotweb_client
+https://www.erdcloud.com/d/oaDJRsA2B5qCRetsG
+

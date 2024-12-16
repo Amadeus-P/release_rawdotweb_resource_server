@@ -24,32 +24,37 @@ public class WebsiteController {
     public ResponseEntity<WebsiteResponseDto> getList(
             @ModelAttribute WebsiteSearchDto websiteSearchDto
     ) {
-        if(websiteSearchDto.getPage() == null || websiteSearchDto.getPage() < 1) {
+        if (websiteSearchDto.getPage() == null || websiteSearchDto.getPage() < 1) {
             websiteSearchDto.setPage(1);
         }
-        if(websiteSearchDto.getKeyWord() == null) {
+        if (websiteSearchDto.getSize() == null)
+            websiteSearchDto.setSize(4);
+        if (websiteSearchDto.getKeyWord() == null) {
             websiteSearchDto.setKeyWord("");
         }
 
-        System.out.println("==============조회 검색 컨트롤러 요청");
-        System.out.println("websiteSearchDto.getPage()" + websiteSearchDto.getPage());
-        System.out.println("검색 키워드" + websiteSearchDto.getKeyWord());
+        System.out.println("=========WebsiteController=====getList=============");
+        System.out.println("websiteSearchDto.getPage(): " + websiteSearchDto.getPage());
+        System.out.println("websiteSearchDto.getSize(): " + websiteSearchDto.getSize());
+        System.out.println("검색어: " + websiteSearchDto.getKeyWord());
 
         WebsiteResponseDto responseDto = websiteService.getList(websiteSearchDto);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK); // 페이지 정보, 웹사이트 정보, 카테고리 정보
+        System.out.println("responseDto: " + responseDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK); // 페이지 정보, 웹사이트 정보, 카테고리 정보
     }
+
     // GET + ID
     @GetMapping("{websiteId}")
     public ResponseEntity<WebsiteListDto> getOne(
             @PathVariable(value = "websiteId", required = true) Long websiteId
     ) {
-        return new ResponseEntity<>(websiteService.getById(websiteId),HttpStatus.OK);
+        return new ResponseEntity<>(websiteService.getById(websiteId), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<?> create(
             @ModelAttribute WebsiteCreateDto websiteCreateDto,
-            @RequestParam("img")MultipartFile image
+            @RequestParam("img") MultipartFile image
     ) {
         try {
             // JWT 인증필터에서 가져온 회원 아이디
@@ -57,12 +62,12 @@ public class WebsiteController {
             Long memberId = authenticatedId.getAuthMemberId();
             websiteCreateDto.setMemberId(memberId);
 
-            System.out.println("memberId: " + memberId);
-            System.out.println("memberId: " +  websiteCreateDto.getMemberId());
-            System.out.println("title: " +  websiteCreateDto.getTitle());
-            System.out.println("url: " + websiteCreateDto.getUrl());
-            System.out.println("categoryId: " + websiteCreateDto.getCategoryId());
-            System.out.println("Image: " + (image != null ? image.getOriginalFilename() : "No image"));
+            // System.out.println("memberId: " + memberId);
+            // System.out.println("memberId: " +  websiteCreateDto.getMemberId());
+            // System.out.println("title: " +  websiteCreateDto.getTitle());
+            // System.out.println("url: " + websiteCreateDto.getUrl());
+            // System.out.println("categoryId: " + websiteCreateDto.getCategoryId());
+            // System.out.println("Image: " + (image != null ? image.getOriginalFilename() : "No image"));
 
             websiteService.create(websiteCreateDto, image);
 
@@ -80,7 +85,7 @@ public class WebsiteController {
     @PutMapping("{websiteId}")
     public ResponseEntity<WebsiteListDto> update(
             WebsiteListDto websiteListDto,
-            @RequestParam("img")MultipartFile newImage,
+            @RequestParam("img") MultipartFile newImage,
             @PathVariable(value = "websiteId", required = true) Long websiteId
     ) {
         websiteListDto.setId(websiteId);
