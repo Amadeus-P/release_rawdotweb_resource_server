@@ -23,18 +23,18 @@ public class ActionController {
         this.actionService = actionService;
     }
     @PostMapping()
-    public ResponseEntity<?> setStatusAction(
+    public ResponseEntity<?> setActionStatus(
             @RequestBody MemberActionDto memberActionDto
     ) {
         try {
             GetAuthMemberId authenticatedId = new GetAuthMemberId();
             Long memberId = authenticatedId.getAuthMemberId();
 
-            System.out.println("=========/actions=============");
-            System.out.println("actionDto.getWebsiteId() " + memberActionDto.getWebsiteId());
-            System.out.println("actionDto.getMemberId() " + memberActionDto.getMemberId());
-            System.out.println("actionDto.getAction() " + memberActionDto.getAction());
-            System.out.println("actionDto.getIsAdded() " + memberActionDto.getIsAdded());
+            // System.out.println("=========/actions=============");
+            // System.out.println("actionDto.getWebsiteId() " + memberActionDto.getWebsiteId());
+            // System.out.println("actionDto.getMemberId() " + memberActionDto.getMemberId());
+            // System.out.println("actionDto.getAction() " + memberActionDto.getAction());
+            // System.out.println("actionDto.getIsAdded() " + memberActionDto.getIsAdded());
 
             memberActionDto.setMemberId(memberId);
             actionService.setStatusAction(memberActionDto);
@@ -48,18 +48,18 @@ public class ActionController {
         }
     }
     @GetMapping("website")
-    public  ResponseEntity<?> getAllActionStatus(
+    public  ResponseEntity<?> getWebsiteListActionStatus(
             @RequestParam List<Long> websiteIds
 
     ) {
         // 여러 개의 웹사이트 아이디를 어떻게 처리?
         try {
-            System.out.println("=========/actions/website=============");
-            System.out.println("============================websiteIds " + websiteIds);
+            // System.out.println("=========/actions/website=============");
+            // System.out.println("============================websiteIds " + websiteIds);
             // 서비스 레이어 호출
-            System.out.println("actionService.getMemberAllActionStatus(websiteIds): " + actionService.getWebsiteListActionStatus(websiteIds));
+            // System.out.println("actionService.getMemberAllActionStatus(websiteIds): " + actionService.getWebsiteListActionStatus(websiteIds));
             WebsiteActionResponseDto resultDto = actionService.getWebsiteListActionStatus(websiteIds);
-            System.out.println("=================resultDto: " + resultDto);
+            // System.out.println("=================resultDto: " + resultDto);
 
             return ResponseEntity.ok(resultDto); // 상태 반환
         } catch (Exception e) {
@@ -68,11 +68,11 @@ public class ActionController {
         }
     }
     @GetMapping("website/{websiteId}")
-    public ResponseEntity<?> getWebsiteActionStatus(
+    public ResponseEntity<?> getOneWebsiteActionStatus(
             @PathVariable(value = "websiteId", required = true) Long websiteId
     ) {
         try {
-            System.out.println("=========/actions/website/{websiteId}=============");
+            // System.out.println("=========/actions/website/{websiteId}=============");
             WebsiteActionDto responseDto = actionService.getOneWebsiteActionStatus(websiteId);
 
             return ResponseEntity.ok(responseDto); // 상태 반환
@@ -89,8 +89,8 @@ public class ActionController {
         try {
             // 서비스 레이어 호출
             MemberActionResponseDto responseDto = actionService.getMemberActionStatus();
-            System.out.println("===================member/{memberId}==================");
-            System.out.println("responseDto: " + responseDto);
+            // System.out.println("===================member/{memberId}==================");
+            // System.out.println("responseDto: " + responseDto);
             return ResponseEntity.ok(responseDto); // 상태 반환
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("message", e.getMessage()));

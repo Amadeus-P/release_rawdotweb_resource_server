@@ -86,10 +86,12 @@ public class WebsiteRepositoryImpl implements  WebsiteCustomRepository {
                 .createQuery(countWebsiteQuery)
                 .getSingleResult();
 
+        System.out.println("================WebsiteRepositoryImpl===============");
         System.out.println("title: " + title);
         System.out.println("categoryId: " + categoryId);
         System.out.println("Predicates: " + predicates);
 
+        System.out.println("페이지 검색 결과:" + new PageImpl<>(websites, PageRequest.of(page-1, size), countWebsite));
         return new PageImpl<>(websites, PageRequest.of(page-1, size), countWebsite);
     }
 }

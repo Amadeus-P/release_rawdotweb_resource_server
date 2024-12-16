@@ -33,7 +33,7 @@ public class DefaultCategoryService implements CategoryService {
         }
         
         for(Category c : categories) {
-            System.out.println("c.getSubCategories()" + c.getSubCategories());
+            // // System.out.println("c.getSubCategories(): " + c.getSubCategories());
             CategoryListDto categoryListDto = CategoryListDto
                     .builder()
                     .id(c.getId())
