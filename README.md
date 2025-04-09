@@ -52,4 +52,3 @@ pring Boot Test와 JUnit을 활용해 API 단위 테스트 작성하기
 **[ERD Cloud - 논리 설계 문서](https://www.erdcloud.com/d/oaDJRsA2B5qCRetsG)**
 
 **[공용 북마크 서비스 웹사이트](https://www.rawdotweb.com)**
-> 곧 서비스할 공용 북마크 플랫폼입니다.
